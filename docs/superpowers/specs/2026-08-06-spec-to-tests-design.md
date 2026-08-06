@@ -178,6 +178,7 @@ spec-to-tests/
 │       ├── boundary-analysis.md         BVA method + per-type heuristics
 │       ├── stack-detection.md           runner → conventions matrix
 │       ├── contract-format.md           docs/test-contracts/<slug>.md format
+│       ├── writing-the-harness.md       what a feature's test file contains
 │       └── superpowers-integration.md   delegations + no-Superpowers fallback
 ├── README.md
 └── LICENSE
