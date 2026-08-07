@@ -63,19 +63,19 @@ reference, don't comment it out, don't move it to a scratch file.
 
 ## Phase 4 — triage every new test
 
+Both outcomes are legitimate: a feature not yet built fails, a feature already
+built passes. Neither is a problem — an untriaged test is.
+
 | Result | Diagnosis | Action |
 |---|---|---|
-| Fails, target does not exist | Good red | Record the exact failure message |
+| Fails, target does not exist | Good red — the feature is still to build | Record the exact failure message |
+| Passes, behavior already exists | Good pass — the feature was already built | Keep it as a regression test, list it under *already implemented* |
 | Fails on a test defect (typo, bad import, missing fixture) | False red | Fix the test, re-run |
-| Passes | Anomaly | See below |
+| Passes, but asserts nothing meaningful (tautology, mirror assertion, target mocked away) | False pass | Fix it until it can fail |
 
-A passing test has exactly two causes:
-
-- **It asserts nothing meaningful** (tautology, mirror assertion, target mocked
-  away) → defective. Fix it until it can fail.
-- **The behavior already exists** in the codebase → the test is sound. Keep it as
-  a regression test and list it under *already implemented*, outside the
-  expected-red set. Do not delete it. Do not report the feature as still to build.
+The two defective rows are the only findings. Before accepting a pass, confirm
+which of the two it is: **find the code that implements the behavior and name
+it**. A pass you cannot trace to real code is a false pass, not a shortcut.
 
 Never soften a test to make its failure look right.
 

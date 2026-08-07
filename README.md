@@ -12,7 +12,7 @@ reason. **Writes tests only — never production code.**
 | 1 Intake | Collects the features, clarifies one at a time — behavior, input limits, expected errors. |
 | 2 Contracts | Boundary analysis per feature → `docs/test-contracts/<slug>.md`. **Stops for your validation.** |
 | 3 Generation | One test file per feature: parametrized boundary tables + one acceptance test. |
-| 4 Red check | Runs the suite and triages every test. A test that *passes* is an anomaly, not a success. |
+| 4 Red check | Runs the suite and triages every test. A feature not yet built fails; one already built passes — both are fine, an untriaged test is not. |
 | 5 Report | Files created, the exact expected failure per test, and the command to hand off. |
 
 ## What it does not do

@@ -392,15 +392,13 @@ reference, don't comment it out, don't move it to a scratch file.
 |---|---|---|
 | Fails, target does not exist | Good red | Record the exact failure message |
 | Fails on a test defect (typo, bad import, missing fixture) | False red | Fix the test, re-run |
-| Passes | Anomaly | See below |
+| Passes, behavior already exists | Good pass — the feature was already built | Keep as a regression test, list under *already implemented* |
+| Passes, asserts nothing meaningful | False pass | Fix it until it can fail |
 
-A passing test has exactly two causes:
-
-- **It asserts nothing meaningful** (tautology, mirror assertion, target mocked
-  away) → defective. Fix it until it can fail.
-- **The behavior already exists** in the codebase → the test is sound. Keep it as
-  a regression test and list it under *already implemented*, outside the
-  expected-red set. Do not delete it. Do not report the feature as still to build.
+Both a good red and a good pass are legitimate outcomes. The two defective rows
+are the only findings. Before accepting a pass, find and name the code that
+implements the behavior — a pass that cannot be traced to real code is a false
+pass.
 
 Never soften a test to make its failure look right.
 

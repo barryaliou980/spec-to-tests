@@ -14,8 +14,10 @@ against, produced in one pass.
 ## Non-goals
 
 - **No production code.** No implementation, no stub, no empty class, no type
-  shim to "make the import resolve". A passing test at the end of the run is an
-  anomaly to report, not a success.
+  shim to "make the import resolve".
+  *(Corrected 2026-08-06: an earlier draft called any passing test an anomaly.
+  It is not — a feature that was already built passes, and that is a legitimate
+  outcome. Only a pass that cannot be traced to real code is a finding.)*
 - **No chaining into implementation.** The skill ends with a report and an
   explicit hand-off command. It does not offer to "go green".
 - **No test-quality rulebook of its own.** Assertion quality is delegated to
@@ -133,16 +135,14 @@ Run the suite. Triage every new test:
 |---|---|---|
 | Fails because the target does not exist | **Good red** | Record the exact failure message |
 | Fails on a test defect (typo, bad import, missing fixture) | **False red** | Fix the test, re-run |
-| **Passes** | Anomaly | Distinguish the two causes, below |
+| **Passes, behavior already exists** | Good pass — the feature was already built | Keep as a regression test, list under *already implemented* |
+| **Passes, asserts nothing meaningful** | False pass | Fix it until it can fail |
 
-A passing test has exactly two causes, and they are handled differently:
-
-- **The test asserts nothing meaningful** (tautology, mirror assertion, mocked
-  away target). It is defective → fix it until it can fail.
-- **The behavior already exists** in the codebase. The test is sound; keep it as
-  a regression test, and list it in the report under *already implemented* —
-  outside the expected-red set. Do not delete it, and do not report the feature
-  as covered-to-be-built when it is already done.
+Both a good red and a good pass are legitimate outcomes: a feature not yet built
+fails, a feature already built passes. The two defective rows are the only
+findings. Before accepting a pass, confirm which it is by finding and naming the
+code that implements the behavior — a pass that cannot be traced to real code is
+a false pass.
 
 A run is complete when every new test is either a recorded good red or an
 explicitly listed already-implemented pass. Never soften a test to make its
