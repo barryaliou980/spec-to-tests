@@ -148,10 +148,13 @@ A run is complete when every new test is either a recorded good red or an
 explicitly listed already-implemented pass. Never soften a test to make its
 failure "look right".
 
-Note on compiled/typed stacks: a missing module can fail the whole file at
-collection or compile time rather than per test. That is still a good red,
-provided the message is the expected one. Record it at file granularity and say
-so in the report.
+Note on granularity — *corrected after measurement, 2026-08-06:* a top-level
+import of a missing target fails the whole file at load time in **every**
+language, not only compiled ones, and most runners then abort the entire run.
+Measured in pytest 8: a neighbouring green test does not execute unless
+`--continue-on-collection-errors` is passed. Phase 4 must therefore run with the
+runner's continue-on-load-error option, and record the red once at file
+granularity.
 
 ### Phase 5 — Report and hand-off
 

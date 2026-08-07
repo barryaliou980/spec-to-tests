@@ -62,19 +62,22 @@ def test_rejects_amounts_above_the_limit(amount):
         check_transfer_limit(amount)
 ```
 
-**Phase 5** reports:
+**Phase 4** runs the suite with `--continue-on-collection-errors`, so the missing
+module does not abort your existing tests, and **Phase 5** reports:
 
 ```
 Contracts:                docs/test-contracts/transfer-limit.md
 Test files:               tests/test_transfer_limit.py
-Expected reds:            test_accepts_amounts_up_to_the_limit → ModuleNotFoundError: No module named 'transfers.limits'
-                          test_rejects_amounts_above_the_limit → ModuleNotFoundError: No module named 'transfers.limits'
-                          test_rejects_non_positive_amounts    → ModuleNotFoundError: No module named 'transfers.limits'
+Expected reds:            tests/test_transfer_limit.py → ModuleNotFoundError: No module named 'transfers.limits'
+                          (collection error: the file's 3 tests do not run until the module exists)
 Already implemented:      none
 Not covered:              none
 Production files touched: none
 Hand-off:                 superpowers:test-driven-development
 ```
+
+Run it plainly and pytest reports `1 error` and stops — your green tests never
+execute. That is why the flag is part of the phase, not an optional extra.
 
 ## Requirements
 
@@ -85,9 +88,14 @@ inline and says so once — it never blocks.
 
 ## Status
 
-1.0.0. The skill's guidance is written against predicted failure modes; it has
-not yet been validated with behavioral evals against a fixture project. Expect
-to refine the rationalization table in `SKILL.md` as real runs surface real
+1.0.0. The Phase 4 runner behavior above is verified against pytest 8 — the
+collection-error granularity and the `--continue-on-collection-errors`
+requirement were measured, not assumed. The other runners in
+`references/stack-detection.md` are documented from their published behavior.
+
+The rationalization table in `SKILL.md` is written against *predicted* failure
+modes; the skill has not yet been validated with behavioral evals against a
+fixture project. Expect to refine that table as real runs surface real
 rationalizations.
 
 ## License

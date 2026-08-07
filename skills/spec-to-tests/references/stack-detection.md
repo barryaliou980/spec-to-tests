@@ -16,6 +16,30 @@ runner; the existing tests tell you the house style.
 | `pom.xml` / `build.gradle` | JUnit 5 | `src/test/java/**/*Test.java` | `@ParameterizedTest` + `@CsvSource` |
 | none of the above | — | ask the user | — |
 
+## Running Phase 4 without aborting the suite
+
+Every test file this skill writes imports something that does not exist yet.
+That is an error at load time, and most runners treat a load error as fatal to
+the whole run — the user's pre-existing green tests never execute, which looks
+exactly like you broke their suite.
+
+Verified in pytest: with one such file present, the default run reports
+`1 error` and a neighbouring passing test does not run;
+`--continue-on-collection-errors` reports `1 passed, 1 error`.
+
+| Runner | Phase 4 invocation | Failure granularity |
+|---|---|---|
+| pytest | `pytest --continue-on-collection-errors` | one collection error per file |
+| Vitest / Jest | default — a failing import fails that file, others still run | one suite-level failure per file |
+| `go test` | `go test ./...` — the package fails to build | one build error per package |
+| `cargo test` | default — the crate fails to compile | one compile error for the crate |
+| RSpec | `rspec --force-color` — a load error aborts the run; run the new spec files separately to keep the baseline readable | one load error |
+| JUnit 5 (Maven/Gradle) | compilation of the test sources fails | one compile error per module |
+
+Where the runner aborts and has no continue flag, run the pre-existing suite and
+the new files as two separate invocations. Never report a red you obtained by
+deleting or excluding the user's tests.
+
 ## Baseline
 
 Run the suite before writing anything:

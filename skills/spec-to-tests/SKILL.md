@@ -79,9 +79,15 @@ A passing test has exactly two causes:
 
 Never soften a test to make its failure look right.
 
-On compiled or typed stacks a missing target fails the whole file at collection
-time rather than test by test. Still a good red, if the message is the one you
-expected — record it at file granularity and say so.
+**A top-level import of a missing target fails the whole file at collection
+time, not test by test** — in every language, not just compiled ones. Worse,
+most runners abort the run there, so the user's existing green tests never
+execute and the baseline appears to vanish.
+
+Keep imports at the top where they belong, and run Phase 4 with the flag that
+lets collection continue (`pytest --continue-on-collection-errors`; see
+`references/stack-detection.md`). Then record that file's red once, at file
+granularity — not once per test that never ran.
 
 On a red you cannot explain: **REQUIRED SUB-SKILL:** use
 superpowers:systematic-debugging rather than guessing.
