@@ -4,6 +4,8 @@ Turns a list of features into a verified-red test harness: boundary contracts,
 table-driven tests, and a red check that proves each test fails for the right
 reason. **Writes tests only — never production code.**
 
+![Demo: one backlog line becomes a boundary contract, then a test file that fails for a reason you can read](assets/demo.gif)
+
 ## What it does
 
 | Phase | |
@@ -149,6 +151,13 @@ by `writing-good-tests.md` and unexplained failures route to
 inline and says so once — it never blocks.
 
 ## Utilisation
+
+Skill Claude Code qui transforme une liste de fonctionnalités en harnais de
+tests vérifié rouge : il pose ses questions, te fait valider les cas limites
+qu'il compte couvrir, écrit les tests, lance la suite, et s'arrête là.
+**Il n'écrit jamais de code de production** — pas même un stub.
+
+![Démo : une ligne de backlog devient un contrat de cas limites, puis un fichier de test qui échoue pour une raison lisible](assets/demo.gif)
 
 1. Ouvre une session Claude Code **dans le projet** à couvrir — le skill lit ton
    repo pour détecter ton runner de test et copier tes conventions existantes.
