@@ -1,0 +1,13 @@
+{
+  "name": "spec-to-tests",
+  "displayName": "Spec to Tests",
+  "description": "Turns a list of features into a verified-red test harness: boundary contracts, table-driven tests, and a red check that proves each test fails for the right reason. Writes tests only — never production code.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Aliou Barry"
+  },
+  "homepage": "https://github.com/barryaliou980/spec-to-tests",
+  "repository": "https://github.com/barryaliou980/spec-to-tests",
+  "license": "MIT",
+  "keywords": ["tests", "tdd", "boundary-value-analysis", "test-generation", "red-phase", "pytest", "vitest", "superpowers"]
+}

@@ -392,15 +392,13 @@ reference, don't comment it out, don't move it to a scratch file.
 |---|---|---|
 | Fails, target does not exist | Good red | Record the exact failure message |
 | Fails on a test defect (typo, bad import, missing fixture) | False red | Fix the test, re-run |
-| Passes | Anomaly | See below |
+| Passes, behavior already exists | Good pass — the feature was already built | Keep as a regression test, list under *already implemented* |
+| Passes, asserts nothing meaningful | False pass | Fix it until it can fail |
 
-A passing test has exactly two causes:
-
-- **It asserts nothing meaningful** (tautology, mirror assertion, target mocked
-  away) → defective. Fix it until it can fail.
-- **The behavior already exists** in the codebase → the test is sound. Keep it as
-  a regression test and list it under *already implemented*, outside the
-  expected-red set. Do not delete it. Do not report the feature as still to build.
+Both a good red and a good pass are legitimate outcomes. The two defective rows
+are the only findings. Before accepting a pass, find and name the code that
+implements the behavior — a pass that cannot be traced to real code is a false
+pass.
 
 Never soften a test to make its failure look right.
 
@@ -786,7 +784,7 @@ git commit -m "docs: add README and Superpowers integration reference"
 ### Task 8: Register in the aliou-skills marketplace
 
 **Files:**
-- Modify: `/Users/aliou/Documents/Skills/aliou-skills/.claude-plugin/marketplace.json`
+- Modify: `../aliou-skills/.claude-plugin/marketplace.json`
 
 **Interfaces:**
 - Consumes: the `description` and `keywords` from `.claude-plugin/plugin.json` (Task 3).
@@ -814,13 +812,13 @@ The `description` must match `plugin.json` verbatim — two descriptions that dr
 
 - [ ] **Step 2: Verify the JSON parses**
 
-Run: `python3 -m json.tool /Users/aliou/Documents/Skills/aliou-skills/.claude-plugin/marketplace.json > /dev/null && echo OK`
+Run: `python3 -m json.tool ../aliou-skills/.claude-plugin/marketplace.json > /dev/null && echo OK`
 Expected: `OK`.
 
 - [ ] **Step 3: Commit in the marketplace repo**
 
 ```bash
-cd /Users/aliou/Documents/Skills/aliou-skills
+cd ../aliou-skills
 git add .claude-plugin/marketplace.json
 git commit -m "feat: add spec-to-tests to the marketplace catalog"
 ```
@@ -831,7 +829,7 @@ The GitHub repo `barryaliou980/spec-to-tests` does not exist yet and the local r
 
 ```bash
 gh repo create barryaliou980/spec-to-tests --public --source=. --push
-cd /Users/aliou/Documents/Skills/aliou-skills && git push
+cd ../aliou-skills && git push
 ```
 
 Until both are pushed, the marketplace entry points at a repo that cannot be cloned.
