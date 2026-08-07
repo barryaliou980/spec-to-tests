@@ -784,7 +784,7 @@ git commit -m "docs: add README and Superpowers integration reference"
 ### Task 8: Register in the aliou-skills marketplace
 
 **Files:**
-- Modify: `/Users/aliou/Documents/Skills/aliou-skills/.claude-plugin/marketplace.json`
+- Modify: `../aliou-skills/.claude-plugin/marketplace.json`
 
 **Interfaces:**
 - Consumes: the `description` and `keywords` from `.claude-plugin/plugin.json` (Task 3).
@@ -812,13 +812,13 @@ The `description` must match `plugin.json` verbatim — two descriptions that dr
 
 - [ ] **Step 2: Verify the JSON parses**
 
-Run: `python3 -m json.tool /Users/aliou/Documents/Skills/aliou-skills/.claude-plugin/marketplace.json > /dev/null && echo OK`
+Run: `python3 -m json.tool ../aliou-skills/.claude-plugin/marketplace.json > /dev/null && echo OK`
 Expected: `OK`.
 
 - [ ] **Step 3: Commit in the marketplace repo**
 
 ```bash
-cd /Users/aliou/Documents/Skills/aliou-skills
+cd ../aliou-skills
 git add .claude-plugin/marketplace.json
 git commit -m "feat: add spec-to-tests to the marketplace catalog"
 ```
@@ -829,7 +829,7 @@ The GitHub repo `barryaliou980/spec-to-tests` does not exist yet and the local r
 
 ```bash
 gh repo create barryaliou980/spec-to-tests --public --source=. --push
-cd /Users/aliou/Documents/Skills/aliou-skills && git push
+cd ../aliou-skills && git push
 ```
 
 Until both are pushed, the marketplace entry points at a repo that cannot be cloned.
